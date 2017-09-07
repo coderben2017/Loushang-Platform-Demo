@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.loushang.framework.personmanagment.dao.PersonMapper">
+
+    <resultMap type="org.loushang.framework.personmanagment.data.Person" id="personResultMap">
+        <id property="personId" column="person_id"/>
+    </resultMap>
+
+    <select id="findColleague" resultType="org.loushang.framework.personmanagment.data.Person" parameterType="map">
+        SELECT * FROM demo_person
+        <where>
+            <if test="companyId != null">
+                company_id = ${companyId}
+            </if>
+        </where>
+        <if test="orderfield != null">
+            order by
+            <choose>
+                <when test="orderfield == 'personName'">
+                    person_name ${orderdir}
+                </when>
+                <when test="orderfield == 'personNum'">
+                    person_num ${orderdir}
+                </when>
+                <when test="orderfield == 'personSex'">
+                    person_sex ${orderdir}
+                </when>
+                <when test="orderfield == 'personAge'">
+                    person_age ${orderdir}
+                </when>
+                <when test="orderfield == 'personBirth'">
+                    person_birth ${orderdir}
+                </when>
+                <when test="orderfield == 'personAddress'">
+                    person_address ${orderdir}
+                </when>
+                <when test="orderfield == 'companyId'">
+                    company_id ${orderdir}
+                </when>
+                <otherwise>
+                    company_name ${orderdir}
+                </otherwise>
+            </choose>
+        </if>
+    </select>
+
+    <select id="findAll" resultType="org.loushang.framework.personmanagment.data.Person" parameterType="map">
+        SELECT * FROM demo_person
+        <where>
+            <if test="personId != null and personId!='' ">
+                person_id like '%${personId}%'
+            </if>
+            <if test="personName != null and personName!= '' ">
+                and person_name like '%${personName}%'
+            </if>
+        </where>
+        <if test="orderfield != null">
+            order by
+            <choose>
+                <when test="orderfield == 'personName'">
+                    person_name ${orderdir}
+                </when>
+                <when test="orderfield == 'personNum'">
+                    person_num ${orderdir}
+                </when>
+                <when test="orderfield == 'personSex'">
+                    person_sex ${orderdir}
+                </when>
+                <when test="orderfield == 'personAge'">
+                    person_age ${orderdir}
+                </when>
+                <when test="orderfield == 'personBirth'">
+                    person_birth ${orderdir}
+                </when>
+                <when test="orderfield == 'personAddress'">
+                    person_address ${orderdir}
+                </when>
+                <when test="orderfield == 'companyId'">
+                    company_id ${orderdir}
+                </when>
+                <otherwise>
+                    company_name ${orderdir}
+                </otherwise>
+            </choose>
+        </if>
+    </select>
+
+</mapper>
